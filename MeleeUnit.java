@@ -1,7 +1,14 @@
 public abstract class MeleeUnit extends Unit {
 
-    public MeleeUnit() {
-        super(name, position, health, armorClass, moveDistance, initiative, isAlive);
+    public int attacksAmount;
+    public int attackRange;
+
+    public MeleeUnit(int[] position, int initiative, int attacksAmount, int attackRange) {
+        super(position, 100, 10, 1, initiative, true);
+
+        this.attacksAmount = attacksAmount;
+        this.attackRange = attackRange;
     }
-    
+
+        
 }

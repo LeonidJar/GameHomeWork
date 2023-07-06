@@ -1,7 +1,8 @@
-public abstract class Unit {
+public abstract class Unit implements InGameInterface {
 
     public int[] position; // [x,y]
 
+    public int currentHealth;
     public int health;
     public int damage;
     public int moveDistance;
@@ -10,14 +11,16 @@ public abstract class Unit {
 
     public boolean isAlive;
 
-    public Unit(int[] position, int health, int damage, int moveDistance, int initiative, boolean isAlive) {
+    public Unit(int[] position, int currentHealth, int health, int damage, int moveDistance, int initiative, boolean isAlive) {
         this.position = position;
+        this.currentHealth  = currentHealth;
         this.health = health;
         this.damage = damage;
         this.moveDistance = moveDistance;
         this.initiative = initiative;
         this.isAlive = isAlive;
     }
+
 
     public int[] move(int[] targetPosition) {
         while (moveDistance > 0 || position != targetPosition) {
@@ -48,5 +51,21 @@ public abstract class Unit {
 
         return position;
     }
-    
+
+
+    public void getDamage(int damage) {
+        currentHealth -= damage;
+
+        if (currentHealth <= 0) {
+            isAlive = false;
+            currentHealth = 0;
+        }
+    }
+
+
+    public void getHeal(int heal) {
+        currentHealth += heal;
+
+        if (currentHealth >= health) currentHealth = health;
+    }
 }

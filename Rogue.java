@@ -4,5 +4,14 @@ public class Rogue extends MeleeUnit {
         super(position, initiative, 2, 1);
     }
     
+    @Override
+    public void step() {
+
+    }
+
+    @Override
+    public String getInfo() {
+        return "Rogue";
+    }
 
 }

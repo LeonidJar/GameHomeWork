@@ -17,43 +17,42 @@ public class MainGame {
 
         for (int i = 0; i < teamCount; i++) {
             int value = new Random().nextInt(7);
-            addRandomUnit(value, team1);
+            addRandomUnit(value, team1, 1);
 
             value = new Random().nextInt(7);
-            addRandomUnit(value, team2);
+            addRandomUnit(value, team2, 10);
         }
 
         System.out.println("Team 1:");
-        for (int i = 0; i < teamCount; i++) {
-            System.out.println(team1.get(i).getInfo());
-        }
+        for (int i = 0; i < teamCount; i++) System.out.println(team1.get(i).getInfo());
 
         System.out.println();
 
         System.out.println("Team 2:");
-        for (int i = 0; i < teamCount; i++) {
-            System.out.println(team2.get(i).getInfo());
-        }
+        for (int i = 0; i < teamCount; i++) System.out.println(team2.get(i).getInfo());
+
+        System.out.println();
+        for (int i = 0; i < teamCount; i++) team1.get(i).step(team2);
         
     }    
     
 
-    private static void addRandomUnit(int num, ArrayList<Unit> list) {
+    private static void addRandomUnit(int num, ArrayList<Unit> list, int team) {
         switch (num) {
             case 0:
-                list.add(new Archer(new int[]{2, 1}, new Random().nextInt(21)));
+                list.add(new Archer(team, num + 1, new Random().nextInt(21)));
             case 1:
-                list.add(new Lancer(new int[]{6, 1}, new Random().nextInt(21)));
+                list.add(new Lancer(team, num + 1, new Random().nextInt(21)));
             case 2:
-                list.add(new Mage(new int[]{3, 1}, new Random().nextInt(21), 1));
+                list.add(new Mage(team, num + 1, new Random().nextInt(21), 1));
             case 3:
-                list.add(new Monk(new int[]{4, 1}, new Random().nextInt(21), 1));
+                list.add(new Monk(team, num + 1, new Random().nextInt(21), 1));
             case 4:
-                list.add(new Peasant(new int[]{4, 1}, new Random().nextInt(21), 1));
+                list.add(new Peasant(team, num + 1, new Random().nextInt(21), 1));
             case 5: 
-                list.add(new Rogue(new int[]{7, 1}, new Random().nextInt(21)));
+                list.add(new Rogue(team, num + 1, new Random().nextInt(21)));
             case 6:
-                list.add(new Sniper(new int[]{1, 1}, new Random().nextInt(21)));
+                list.add(new Sniper(team, num + 1, new Random().nextInt(21)));
         }
     }
 }

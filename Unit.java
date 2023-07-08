@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public abstract class Unit implements InGameInterface {
 
     public int[] position; // [x,y]
@@ -11,8 +13,11 @@ public abstract class Unit implements InGameInterface {
 
     public boolean isAlive;
 
-    public Unit(int[] position, int currentHealth, int health, int damage, int moveDistance, int initiative, boolean isAlive) {
-        this.position = position;
+    Coordinates coordinates;
+
+
+    public Unit(int x, int y, int currentHealth, int health, int damage, int moveDistance, int initiative, boolean isAlive) {
+        coordinates = new Coordinates(x, y);
         this.currentHealth  = currentHealth;
         this.health = health;
         this.damage = damage;
@@ -50,6 +55,21 @@ public abstract class Unit implements InGameInterface {
         } 
 
         return position;
+    }
+
+
+    public Unit findClosestEnemy(ArrayList<Unit> units) {
+        double minDistance = Double.MAX_VALUE;
+        Unit closestEnemy = null;
+
+        for (int i = 0; i < units.size(); i++) {
+            if (coordinates.countDistance(units.get(i).coordinates) < minDistance) {
+                closestEnemy = units.get(i);
+                minDistance = coordinates.countDistance(units.get(i).coordinates);
+            }
+        }
+
+        return closestEnemy;
     }
 
 

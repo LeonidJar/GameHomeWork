@@ -1,17 +1,20 @@
+import java.util.ArrayList;
+
 public class Rogue extends MeleeUnit {
 
-    public Rogue(int[] position, int initiative) {
-        super(position, initiative, 2, 1);
+    public Rogue(int x, int y, int initiative) {
+        super(x, y, initiative, 2, 1);
     }
     
     @Override
-    public void step() {
-
+    public void step(ArrayList<Unit> units) {
+        Unit tmp = findClosestEnemy(units);
+        System.out.println(getInfo() + " -> " + tmp.getInfo() + " distance: " + coordinates.countDistance(tmp.coordinates));
     }
 
     @Override
     public String getInfo() {
-        return "Rogue";
+        return "Rogue [" + coordinates.x + ", " + coordinates.y + "]";
     }
 
 }

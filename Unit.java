@@ -27,34 +27,33 @@ public abstract class Unit implements InGameInterface {
     }
 
 
-    public int[] move(int[] targetPosition) {
-        while (moveDistance > 0 || position != targetPosition) {
+    public void move(Coordinates targetPosition) {
+        for (int i = 0; i < moveDistance; i++) {
             //если по координате Х больше растояние 
-            if (Math.abs(targetPosition[0] - position[0]) > Math.abs(targetPosition[1] - position[1])) {
-                if (targetPosition[0] - position[0] > 0) position[0] += 1;
-                else position[0] -= 1;
+            if (Math.abs(targetPosition.x - coordinates.x) > Math.abs(targetPosition.y - coordinates.y)) {
+                if (targetPosition.x - coordinates.x > 0) coordinates.x += 1;
+                else coordinates.x -= 1;
             }
 
-            //если по координате У больше растояние
-            if (Math.abs(targetPosition[1] - position[1]) > Math.abs(targetPosition[0] - position[0])) {
-                if (targetPosition[1] - position[1] > 0) position[1] += 1;
-                else position[1] -= 1;
+            //если по координате Y больше растояние
+            if (Math.abs(targetPosition.x - coordinates.x) < Math.abs(targetPosition.y - coordinates.y)) {
+                if (targetPosition.y - coordinates.y > 0) coordinates.y += 1;
+                else coordinates.y -= 1;
             }
 
             //если находится ровно по диагонали
-            if (Math.abs(targetPosition[0] - position[0]) == Math.abs(targetPosition[1] - position[1])) {
-                if (targetPosition[0] - position[0] > 0) {
-                    position[0] += 1;
-                    position[1] += 1;
+            if (Math.abs(targetPosition.x - coordinates.x) == Math.abs(targetPosition.y - coordinates.y)) {
+                if (targetPosition.x - coordinates.x > 0) {
+                    coordinates.x += 1;
+                    coordinates.y += 1;
                 }
                 else {
-                    position[0] -= 1;
-                    position[1] -= 1;
+                    coordinates.x -= 1;
+                    coordinates.y -= 1;
                 }
             }
         } 
 
-        return position;
     }
 
 
@@ -63,7 +62,7 @@ public abstract class Unit implements InGameInterface {
         Unit closestEnemy = null;
 
         for (int i = 0; i < units.size(); i++) {
-            if (coordinates.countDistance(units.get(i).coordinates) < minDistance) {
+            if (coordinates.countDistance(units.get(i).coordinates) < minDistance && units.get(i).isAlive) {
                 closestEnemy = units.get(i);
                 minDistance = coordinates.countDistance(units.get(i).coordinates);
             }
@@ -77,8 +76,8 @@ public abstract class Unit implements InGameInterface {
         currentHealth -= damage;
 
         if (currentHealth <= 0) {
-            isAlive = false;
             currentHealth = 0;
+            isAlive = false;            
         }
     }
 

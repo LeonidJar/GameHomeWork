@@ -6,7 +6,7 @@ public class Sniper extends RangeUnit {
 
     @Override
     public String getInfo() {
-        return "Sniper [" + coordinates.x + ", " + coordinates.y + "]";
+        return "Sniper [" + coordinates.x + ", " + coordinates.y + "] " + currentHealth + "/" + health + " " + state;
     }
     
 }

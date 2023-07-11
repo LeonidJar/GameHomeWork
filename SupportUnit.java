@@ -8,7 +8,7 @@ public abstract class SupportUnit extends Unit {
     public int actionPriority; //0 - help; 1 - attack
 
     public SupportUnit(int x,int y, int initiative, int manaPoints, int magicDamage, int attackRange, int actionPriority) {
-        super(x, y, 50, 70, 5, 1, initiative, true);
+        super(x, y, 70, 70, 5, 1, initiative, true);
 
         this.manaPoints = manaPoints;
         this.magicDamage = magicDamage;
@@ -19,24 +19,36 @@ public abstract class SupportUnit extends Unit {
     @Override
     public void step(ArrayList<Unit> enemy, ArrayList<Unit> allys) {
         Unit tmp = findClosestEnemy(enemy);
+        Unit tmpAlly = allys.get(0);
+        double minAllyHealth = 1;
 
         if (isAlive) {
+            for (Unit unit: allys) {
+                if (unit.currentHealth / unit.health < minAllyHealth && unit.isAlive) {
+                    minAllyHealth = unit.currentHealth / unit.health;
+                    tmpAlly = unit;
+                } 
+            }
+
+            if (minAllyHealth < 1) {
+                tmpAlly.getDamage(-damage);
+                state = "Healing";
+
+                return;
+            }
+
             if ((int)coordinates.countDistance(tmp.coordinates) <= attackRange) {
                 if (manaPoints > 0) {
                     tmp.getDamage(damage);
                     manaPoints -= 1;
-
-                    System.out.println(getInfo() + " attacking " + tmp.getInfo() + " distance: " + (int)coordinates.countDistance(tmp.coordinates) + " current enemy health: " + tmp.currentHealth);
-
+                    state = "Attack";
                 } else {
                     manaPoints += 1;
-                    System.out.println(getInfo() + " attacking " + tmp.getInfo() + " distance: " + (int)coordinates.countDistance(tmp.coordinates) + " no mana, restoring mana " );
-
+                    state = "Busy";
                 }
             } else {
-                System.out.print(getInfo() + " moving to " + tmp.getInfo() + " distance: " + (int)coordinates.countDistance(tmp.coordinates));
                 move(tmp.coordinates);
-                System.out.println(" new position [" + coordinates.x + ", " + coordinates.y + "]");
+                state = "Moving";
             }
         }
     }

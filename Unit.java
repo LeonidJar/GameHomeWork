@@ -13,6 +13,9 @@ public abstract class Unit implements InGameInterface {
 
     public boolean isAlive;
 
+    // Stand, Dead, Busy, Moving, Attack, Healing
+    public String state = "Stand";
+
     Coordinates coordinates;
 
 
@@ -77,13 +80,9 @@ public abstract class Unit implements InGameInterface {
 
         if (currentHealth <= 0) {
             currentHealth = 0;
-            isAlive = false;            
+            isAlive = false;    
+            state = "Dead";        
         }
-    }
-
-
-    public void getHeal(int heal) {
-        currentHealth += heal;
 
         if (currentHealth >= health) currentHealth = health;
     }

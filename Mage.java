@@ -8,7 +8,7 @@ public class Mage extends SupportUnit {
 
     @Override
     public String getInfo() {
-        return "Mage [" + coordinates.x + ", " + coordinates.y + "]";
+        return "Mage [" + coordinates.x + ", " + coordinates.y + "] " + currentHealth + "/" + health + " " + state;
     }
     
 }

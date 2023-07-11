@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Peasant extends SupportUnit {
 
     public Peasant(int x, int y, int initiative, int actionPriority) {
@@ -6,7 +8,16 @@ public class Peasant extends SupportUnit {
 
     @Override
     public String getInfo() {
-        return "Peasant [" + coordinates.x + ", " + coordinates.y + "]";
+        return "Peasant [" + coordinates.x + ", " + coordinates.y + "] " + currentHealth + "/" + health + " " + state;
+    }
+
+    @Override
+    public void step(ArrayList<Unit> enemy, ArrayList<Unit> allys) {
+        if (isAlive) {
+            if (state == "Busy") {
+                state = "Stand";
+            }
+        }
     }
     
 }

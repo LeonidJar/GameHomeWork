@@ -8,6 +8,6 @@ public class Monk extends SupportUnit {
 
     @Override
     public String getInfo() {
-        return "Monk [" + coordinates.x + ", " + coordinates.y + "]";
+        return "Monk [" + coordinates.x + ", " + coordinates.y + "] " + currentHealth + "/" + health + " " + state;
     }
 }

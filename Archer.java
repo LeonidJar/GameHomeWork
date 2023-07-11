@@ -6,6 +6,6 @@ public class Archer extends RangeUnit {
 
     @Override
     public String getInfo() {
-        return "Archer [" + coordinates.x + ", " + coordinates.y + "]";
+        return "Archer [" + coordinates.x + ", " + coordinates.y + "] " + ammoAmount + " " + currentHealth + "/" + health + " " + state;
     }    
 }

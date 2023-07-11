@@ -19,14 +19,15 @@ public abstract class MeleeUnit extends Unit {
         if (isAlive) {
             if ((int)coordinates.countDistance(tmp.coordinates) <= attackRange) {
                 tmp.getDamage(damage);
-
-                System.out.println(getInfo() + " attacking " + tmp.getInfo() + " distance: " + (int)coordinates.countDistance(tmp.coordinates) + " current enemy health: " + tmp.currentHealth);
+                state = "Attack";
+                return;
             } else {
-                System.out.print(getInfo() + " moving to " + tmp.getInfo() + " distance: " + (int)coordinates.countDistance(tmp.coordinates));
                 move(tmp.coordinates);
-                System.out.println(" new position [" + coordinates.x + ", " + coordinates.y + "]");
+                state = "Moving";
+                return;
             }
         }
+        return;
     }
         
 }

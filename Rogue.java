@@ -12,7 +12,7 @@ public class Rogue extends MeleeUnit {
 
     @Override
     public String getInfo() {
-        return "Rogue [" + coordinates.x + ", " + coordinates.y + "]";
+        return "Rogue [" + coordinates.x + ", " + coordinates.y + "] " + currentHealth + "/" + health + " " + state;
     }
 
 }

@@ -1,4 +1,10 @@
-// Делаем крестьян! В степе проверяем жив ли он и если жив сбрасываем флаг занятости или поле state
+// 1. Проверяем здоровье
+// 2. Ищем ближайшего врага
+// 3. Двигаемся в сторну врага
+// 4. Не наступаем на живых персонажей
+// 5. Если расстояние до врага одна клетка бём его!
+
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,10 +51,10 @@ public class MainGame {
             }
         }
 
+        View.view();
 
         Scanner in = new Scanner(System.in);
         while (true) {
-            View.view();
             in.nextLine();
             String massege = null;
 
@@ -77,6 +83,8 @@ public class MainGame {
                     break;
                 }
             }
+
+            View.view();
 
             if (massege == "Team 2 win!" || massege == "Team 1 win!") {
                 System.out.println(massege);

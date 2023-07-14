@@ -13,7 +13,7 @@ public abstract class Unit implements InGameInterface {
 
     public boolean isAlive;
 
-    // Stand, Dead, Busy, Moving, Attack, Healing
+    // Stand, Dead, Busy, Moving, Attack, Healing, Revive
     public String state = "Stand";
 
     Coordinates coordinates;
@@ -30,32 +30,12 @@ public abstract class Unit implements InGameInterface {
     }
 
 
-    public void move(Coordinates targetPosition) {
-        for (int i = 0; i < moveDistance; i++) {
-            //если по координате Х больше растояние 
-            if (Math.abs(targetPosition.x - coordinates.x) > Math.abs(targetPosition.y - coordinates.y)) {
-                if (targetPosition.x - coordinates.x > 0) coordinates.x += 1;
-                else coordinates.x -= 1;
-            }
-
-            //если по координате Y больше растояние
-            if (Math.abs(targetPosition.x - coordinates.x) < Math.abs(targetPosition.y - coordinates.y)) {
-                if (targetPosition.y - coordinates.y > 0) coordinates.y += 1;
-                else coordinates.y -= 1;
-            }
-
-            //если находится ровно по диагонали
-            if (Math.abs(targetPosition.x - coordinates.x) == Math.abs(targetPosition.y - coordinates.y)) {
-                if (targetPosition.x - coordinates.x > 0) {
-                    coordinates.x += 1;
-                    coordinates.y += 1;
-                }
-                else {
-                    coordinates.x -= 1;
-                    coordinates.y -= 1;
-                }
-            }
-        } 
+    public void move(Coordinates targetPosition, ArrayList<Unit> allys) {
+        if (!coordinates.containsByPos(coordinates.newPosition(targetPosition, allys), allys)) {
+            for (int i = 0; i < moveDistance; i++) {
+                coordinates = coordinates.newPosition(targetPosition, allys);
+            } 
+        }
 
     }
 

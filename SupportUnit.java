@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class SupportUnit extends Unit {
 
@@ -19,38 +20,21 @@ public abstract class SupportUnit extends Unit {
     @Override
     public void step(ArrayList<Unit> enemy, ArrayList<Unit> allys) {
         Unit tmp = findClosestEnemy(enemy);
-        Unit tmpAlly = allys.get(0);
-        double minAllyHealth = 1;
-
-        if (isAlive) {
-            for (Unit unit: allys) {
-                if (unit.currentHealth / unit.health < minAllyHealth && unit.isAlive) {
-                    minAllyHealth = unit.currentHealth / unit.health;
-                    tmpAlly = unit;
-                } 
-            }
-
-            if (minAllyHealth < 1) {
-                tmpAlly.getDamage(-damage);
-                state = "Healing";
-
-                return;
-            }
-
-            if ((int)coordinates.countDistance(tmp.coordinates) <= attackRange) {
-                if (manaPoints > 0) {
-                    tmp.getDamage(damage);
-                    manaPoints -= 1;
-                    state = "Attack";
-                } else {
-                    manaPoints += 1;
-                    state = "Busy";
-                }
+        
+        if ((int)coordinates.countDistance(tmp.coordinates) <= attackRange) {
+            if (manaPoints > 0) {
+                tmp.getDamage(damage);
+                manaPoints -= 1;
+                state = "Attack";
             } else {
-                move(tmp.coordinates);
-                state = "Moving";
+                manaPoints += 1;
+                state = "Busy";
             }
+        } else {
+            move(tmp.coordinates, allys);
+            state = "Moving";
         }
+        
     }
     
 }

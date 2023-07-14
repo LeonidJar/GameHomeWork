@@ -6,7 +6,7 @@ public class Lancer extends MeleeUnit{
 
     @Override
     public String getInfo() {
-        return "Lancer [" + coordinates.x + ", " + coordinates.y + "] " + currentHealth + "/" + health + " " + state;
+        return "Lancer [" + coordinates.x + ", " + coordinates.y + "] HP:" + currentHealth + "/" + health + " " + state;
     }
     
     

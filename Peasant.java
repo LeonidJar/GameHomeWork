@@ -8,7 +8,7 @@ public class Peasant extends SupportUnit {
 
     @Override
     public String getInfo() {
-        return "Peasant [" + coordinates.x + ", " + coordinates.y + "] " + currentHealth + "/" + health + " " + state;
+        return "Peasant [" + coordinates.x + ", " + coordinates.y + "] HP:" + currentHealth + "/" + health + " " + state;
     }
 
     @Override

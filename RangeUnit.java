@@ -28,14 +28,18 @@ public abstract class RangeUnit extends Unit {
             }
 
             if ((int)coordinates.countDistance(tmp.coordinates) <= attackRange) {
-                if (ammoAmount > 0) {
-                    tmp.getDamage(damage);
+                if (ammoAmount > 0 && attackRange != 1) {
+                    if (attackRange == 1) tmp.getDamage(1);
+                    else tmp.getDamage(damage);
                     ammoAmount -= 1;
                     state = "Attack";
                     return;
-                } 
+                } else {
+                    attackRange = 1;
+                    state = "->Melee";
+                }
             } else {
-                move(tmp.coordinates);
+                move(tmp.coordinates, allys);
                 state = "Moving";
                 return;
             }

@@ -12,22 +12,37 @@ public abstract class MeleeUnit extends Unit {
         this.attackRange = attackRange;
     }
 
+    // @Override
+    // public void step(ArrayList<Unit> enemy, ArrayList<Unit> allys) {
+    //     Unit tmp = findClosestEnemy(enemy);
+
+    //     if (isAlive) {
+    //         if ((int)coordinates.countDistance(tmp.coordinates) <= attackRange) {
+    //             tmp.getDamage(damage);
+    //             state = "Attack";
+    //             return;
+    //         } else {
+    //             move(tmp.coordinates);
+    //             state = "Moving";
+    //             return;
+    //         }
+    //     }
+    //     return;
+    // }
+
     @Override
     public void step(ArrayList<Unit> enemy, ArrayList<Unit> allys) {
+        if (!isAlive) return;
+
         Unit tmp = findClosestEnemy(enemy);
 
-        if (isAlive) {
-            if ((int)coordinates.countDistance(tmp.coordinates) <= attackRange) {
-                tmp.getDamage(damage);
-                state = "Attack";
-                return;
-            } else {
-                move(tmp.coordinates);
-                state = "Moving";
-                return;
-            }
+        if (coordinates.countDistance(tmp.coordinates) <= attackRange) {
+            for (int i = 0; i < attacksAmount; i++) tmp.getDamage(damage);
+            state = "Attack";
+        } else {
+            move(tmp.coordinates, allys);
+            state = "Moving";
         }
-        return;
     }
         
 }

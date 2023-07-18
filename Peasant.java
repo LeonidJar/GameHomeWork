@@ -19,5 +19,4 @@ public class Peasant extends SupportUnit {
             }
         }
     }
-    
 }

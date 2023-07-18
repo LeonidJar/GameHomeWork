@@ -1,10 +1,9 @@
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Monk extends SupportUnit {
 
     public Monk(int x, int y, int initiative, int actionPriority) {
-        super(x, y, initiative + 2, 10, 5, 2, actionPriority);
+        super(x, y, initiative + 2, 20, 5, 2, actionPriority);
     }
 
     @Override
@@ -14,6 +13,8 @@ public class Monk extends SupportUnit {
 
     @Override
     public void step(ArrayList<Unit> enemy, ArrayList<Unit> allys) {
+        if (!isAlive) return;
+        
         super.step(enemy, allys);
         Unit tmpAlly = allys.get(0);
         double minAllyHealth = 1;

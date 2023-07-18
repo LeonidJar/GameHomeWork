@@ -14,6 +14,8 @@ public class Mage extends SupportUnit {
 
     @Override
     public void step(ArrayList<Unit> enemy, ArrayList<Unit> allys) {
+        if (!isAlive) return;
+
         super.step(enemy, allys);
         ArrayList<Unit> deadTeammates = new ArrayList<>();
         Unit tmpAlly = allys.get(0);
@@ -31,7 +33,7 @@ public class Mage extends SupportUnit {
 
                 deadTeammates.get(n).isAlive = true;
                 deadTeammates.get(n).currentHealth =  deadTeammates.get(n).health / 2;
-                tmpAlly.state = "Revived";
+                //tmpAlly.state = "Revived";
                 state = "Revive";
                 manaPoints = 0;
                 return;

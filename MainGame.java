@@ -56,7 +56,7 @@ public class MainGame {
         Scanner in = new Scanner(System.in);
         while (true) {
             in.nextLine();
-            String massege = null;
+            String massege = "";
 
             int init1 = 0;
             int init2 = 0;
@@ -64,6 +64,15 @@ public class MainGame {
             Unit tmpTeam2 = team2.get(init2);
 
             for (int i = 0; i < teamCount * 2; i++) {
+                if (teamDead(team1)) {
+                    massege = "Team 2 win!";
+                    break;
+                }
+                if (teamDead(team2)) {
+                    massege = "Team 1 win!";
+                    break;
+                }
+                
                 if ((tmpTeam1.initiative >= tmpTeam2.initiative && init1 < 10) || (tmpTeam1.initiative < tmpTeam2.initiative && init2 == 10)) {
                     tmpTeam1.step(team2, team1);
                     init1++;
@@ -73,20 +82,11 @@ public class MainGame {
                     init2++;
                     if (init2 < 10) tmpTeam2 = team2.get(init2);
                 }
-
-                if (teamDead(team1)) {
-                    massege = "Team 2 win!";
-                    break;
-                }
-                if (teamDead(team2)) {
-                    massege = "Team 1 win!";
-                    break;
-                }
             }
 
             View.view();
 
-            if (massege == "Team 2 win!" || massege == "Team 1 win!") {
+            if (massege.equals("Team 2 win!") || massege.equals("Team 1 win!")) {
                 System.out.println(massege);
                 break;
             }
@@ -122,8 +122,7 @@ public class MainGame {
 
     public static boolean teamDead(ArrayList<Unit> list) {
         for (Unit unit: list) {
-            if (unit.state != "Dead") {
-                //System.out.println("alive");
+            if (!unit.state.equals("Dead")) {
                 return false;
             }
         }

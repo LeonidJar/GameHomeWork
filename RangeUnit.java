@@ -18,6 +18,7 @@ public abstract class RangeUnit extends Unit {
     public void step(ArrayList<Unit> enemy, ArrayList<Unit> allys) {
         Unit tmp = findClosestEnemy(enemy);
 
+
         if (isAlive) {
             for (Unit unit: allys) {
                 if (unit instanceof Peasant && unit.state == "Stand" && ammoAmount < 20 && this instanceof Archer) {
